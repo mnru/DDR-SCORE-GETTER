@@ -1,0 +1,11 @@
+img/
+tmp/
+tmp0/
+html/
+csv/
+tsv/
+~$DDR-Score-Getter.xlsm
+data.mdb
+def/schema.ini
+data/schema.ini
+data/master_music.txt

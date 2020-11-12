@@ -1,0 +1,90 @@
+"name","def"
+"Score0","Select A.ID,A.classID,title,play,deg,score,rank, combo,num,cstr(score & trim(suffix)) as data 
+ From (((ScoreTbl A 
+inner join MusicTbl B on A.ID=B.ID) 
+ Inner Join classTbl C on A.classID=C.ClassID) 
+inner join rankTbl D on A.rankID=D.rankID) 
+inner join comboTbl E on A.comboID=E.comboID"
+"MusicLevel0","Select A.ID,A.classID,title,play,deg,lev,ver,init,num 
+From (((MusicLevel A 
+inner join MusicTbl B on A.ID=B.ID) 
+Inner Join classTbl C on A.classID=C.ClassID) 
+inner join verTbl E on B.verID=E.verID) 
+inner join initTbl F on B.initID=F.initID"
+"ScoreView0","SELECT ID, classID, score, rank, combo ,skill,score & trim(suffix) as data 
+ FROM (ScoreTbl A 
+inner Join rankTbl B On A.rankID=B.rankID ) 
+ inner Join comboTbl C On A.comboID=C.comboID"
+"ScoreView","select ver,init,title,play,deg,lev,score,rank, combo,skill,data,A.ID,A.classID,num 
+From ((((musiclevel A 
+left join scoreView0 B on A.ID=B.ID and A.classID=B.classID) 
+inner join musicTbl C on A.ID=C.ID) 
+inner join classTbl D on A.classID=D.ClassID) 
+inner join verTbl E on C.verID=E.verID) 
+inner join initTbl F on C.initID=F.initID"
+"rivalScoreView0","SELECT rivalID,ID, classID, score, rank, combo ,skill 
+ FROM (rivalScoreTbl A 
+inner Join rankTbl B On A.rankID=B.rankID ) 
+ inner Join comboTbl C On A.comboID=C.comboID"
+"rivalScoreView","select rivalID,ver,init,title,play,deg,lev,score,rank, combo,skill 
+From ((((musiclevel A 
+left join rivalScoreView0 B on A.ID=B.ID and A.classID=B.classID) 
+inner join musicTbl C on A.ID=C.ID) 
+inner join classTbl D on A.classID=D.ClassID) 
+inner join verTbl E on C.verID=E.verID) 
+inner join initTbl F on C.initID=F.initID"
+"rivalScoreView1","Select 
+rivalID,ver,init,title,play,deg,lev,B.score,X.score-B.score as diff,B.rank, B.combo,B.skill, 
+X.score as myScore,X.rank as myRank,X.combo as myCombo,X.skill as mySkill 
+From (((((musiclevel A 
+left join rivalScoreView0 B on A.ID=B.ID and A.classID=B.classID) 
+ left join scoreView0 X on A.ID=X.ID and A.classID=X.classID) 
+inner join musicTbl C on A.ID=C.ID) 
+inner join classTbl D on A.classID=D.ClassID) 
+inner join verTbl E on C.verID=E.verID) 
+inner join initTbl F on C.initID=F.initID"
+"previousScore0","SELECT title, play,deg,lev,state, 
+previousScore as _score,G.rank as _rank,H.combo as _combo 
+,score, E.rank, F.combo 
+ FROM (((((((previousScore X 
+left Join MusicLevel A on X.ID=A.ID and X.classID=A.classID) 
+left Join MusicTbl B On X.ID=B.ID ) 
+left Join classTbl C On X.classID=C.classID ) 
+left Join updateTbl D on X.updateFlg=D.updateFlg) 
+left join rankTbl E on X.rankID=E.rankID) 
+left join comboTbl F on X.comboID=F.comboID) 
+left join rankTbl G on X.previousRankID=G.rankID) 
+left join comboTbl H on X.previousComboID=H.comboID"
+"rivalPreviousScore0","SELECT rivalID,title, play,deg,lev,state, 
+previousScore as _score,G.rank as _rank,H.combo as _combo 
+,score, E.rank, F.combo 
+ FROM (((((((rivalPreviousScore X 
+left Join MusicLevel A on X.ID=A.ID and X.classID=A.classID) 
+left Join MusicTbl B On X.ID=B.ID ) 
+left Join classTbl C On X.classID=C.classID ) 
+left Join updateTbl D on X.updateFlg=D.updateFlg) 
+left join rankTbl E on X.rankID=E.rankID) 
+left join comboTbl F on X.comboID=F.comboID) 
+left join rankTbl G on X.previousRankID=G.rankID) 
+left join comboTbl H on X.previousComboID=H.comboID"
+"tmp0","SELECT A.ID,A.classID,title, play,deg,score, rankID, comboID ,updateFlg,skill 
+ FROM ((tmp A 
+left Join MusicTbl B On A.ID=B.ID ) 
+ inner Join classTbl C On A.classID=C.classID )"
+"skillAttackData0","Select title,play,deg,lev,num,A.classID,cstr(score & trim(suffix)) as data 
+From (((previousScore A 
+inner join MusicTbl B on A.id=B.id) 
+inner join classTbl C on A.classID=C.classID) 
+inner join comboTbl D on A.comboID=D.comboID) 
+inner join MusicLevel E on A.id=E.id and A.classID=E.classID 
+Where B.num is not null"
+"horizontalData","select id ,max(iif(classID=0,data,null)) as gsp, 
+max(iif(classID=1,data,null)) as bsp, 
+max(iif(classID=2,data,null)) as dsp, 
+max(iif(classID=3,data,null)) as esp, 
+max(iif(classID=4,data,null)) as csp, 
+max(iif(classID=5,data,null)) as bdp, 
+max(iif(classID=6,data,null)) as ddp, 
+max(iif(classID=7,data,null)) as edp, 
+max(iif(classID=8,data,null)) as cdp 
+ from scoreview0 group by id"

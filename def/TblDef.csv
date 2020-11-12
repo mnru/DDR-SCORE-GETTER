@@ -1,0 +1,95 @@
+"name","def"
+"ScoreTbl","ID Char(32)
+,ClassID TinyInt
+,score Integer
+,rankID tinyInt
+,comboID tinyInt
+,skill double
+,primary key(ID,ClassID)"
+"RivalScoreTbl","rivalID long
+,ID Char(32)
+,ClassID TinyInt
+,score Integer
+,rankID tinyInt
+,comboID tinyInt
+,skill double
+,primary key(rivalID,ID,ClassID)"
+"MusicLevel","ID Char(32)
+,ClassID TinyInt
+,lev tinyInt
+,primary key(ID,ClassID)"
+"MusicTbl","ID char(32) primary key
+,num smallInt
+,title char
+,initID TinyInt
+,verID TinyInt"
+"ClassTbl","ClassID TinyInt primary key
+,play char(1)
+,deg char(1)
+,abbrev char(3)"
+"InitTbl","initID TinyInt primary key
+,init char(3)"
+"VerTbl","verID TinyInt primary key
+,ver char(6)"
+"rankTbl","rankID TinyInt primary key
+,rank char(3)"
+"comboTbl","comboID TinyInt primary key
+,combo char(1)
+,name char(9)
+,suffix char(6)"
+"updateTbl","updateFlg tinyInt primary key
+,state char(7)"
+"tmp","ID char(32)
+,classID tinyInt
+,score integer
+,rankID tinyInt
+,comboID tinyInt
+,updateFlg tinyInt
+,skill double
+,primary key (ID,classID)"
+"rivalTmp","rivalID long
+,ID char(32)
+,classID tinyInt
+,score integer
+,rankID tinyInt
+,comboID tinyInt
+,updateFlg tinyInt
+,skill double
+,primary key (rivalID,ID,classID)"
+"previousScore","ID char(32)
+,classID tinyInt
+,updateFlg tinyInt
+,score integer
+,rankID tinyInt
+,comboID tinyInt
+,previousScore integer
+,previousRankID tinyInt
+,previousComboID tinyInt
+,primary key(ID,classID)"
+"rivalPreviousScore","rivalID long
+,ID char(32)
+,classID tinyInt
+,updateFlg tinyInt
+,score integer
+,rankID tinyInt
+,comboID tinyInt
+,previousScore integer
+,previousRankID tinyInt
+,previousComboID tinyInt
+,primary key (rivalID,ID,classID)"
+"test","[ID] COUNTER,
+[I1] TINYINT,
+[I2] SMALLINT,
+[I4] INTEGER,
+[UI1] BYTE,
+[CY] MONEY,
+[R4] REAL,
+[R8] FLOAT,
+[T_GUID] UNIQUEIDENTIFIER,
+[T_DATE] DATE,
+[T_DECIMAL] DECIMAL(18,4),
+[T_BOOL] BIT,
+[T_BYTES] BINARY,
+[T_BYTESL] LONGBINARY,
+[T_TEXT_64] TEXT(64),
+[T_TE"

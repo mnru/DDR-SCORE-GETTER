@@ -183,7 +183,7 @@ Sub updateScoreTbl()
     Dim num
     sqls1(1) = "update (select * from scoreTbl A right join tmp B on A.ID=B.ID and A.classID=B.classID where A.ID is null) set B.updateFlg=1"
     sqls1(2) = "update (select * from scoreTbl A inner join tmp B on A.ID=B.ID and A.classID=B.classID where A.score<B.score) set B.updateFlg=2"
-    sqls1(3) = "update (select * from scoreTbl A inner join tmp B on A.ID=B.ID and A.classID=B.classID where A.score>=B.score and A.comboID<B.comboID) set B.updateFlg=3"
+    sqls1(3) = "update (select * from scoreTbl A inner join tmp B on A.ID=B.ID and A.classID=B.classID where A.score>=B.score and A.comboID>B.comboID) set B.updateFlg=3"
     sqls1(4) = "update (select * from MusicLevel A inner join tmp B on A.ID=B.ID and A.classID=B.ClassID where updateFlg>0) " & _
     "Set skill=iif(score<=900000,0,cdbl((score-900000)*lev*2/100000+lev))"
     sqls1(5) = "update tmp set skill=int(skill*100)/100.0"
@@ -206,7 +206,7 @@ Sub updateRivalScoreTbl(rival)
     Dim num
     sqls1(1) = "update (select * from rivalScoreTbl A right join tmp B on A.ID=B.ID and A.classID=B.classID where A.rivalID=" & rival & " and A.ID is null) set B.updateFlg=1"
     sqls1(2) = "update (select * from rivalScoreTbl A inner join tmp B on A.ID=B.ID and A.classID=B.classID where A.rivalID=" & rival & " and  A.score<B.score) set B.updateFlg=2"
-    sqls1(3) = "update (select * from rivalScoreTbl A inner join tmp B on A.ID=B.ID and A.classID=B.classID where A.rivalID=" & rival & " and  A.score>=B.score and A.comboID<B.comboID) set B.updateFlg=3"
+    sqls1(3) = "update (select * from rivalScoreTbl A inner join tmp B on A.ID=B.ID and A.classID=B.classID where A.rivalID=" & rival & " and  A.score>=B.score and A.comboID>B.comboID) set B.updateFlg=3"
     sqls1(4) = "update (select * from MusicLevel A inner join tmp B on A.ID=B.ID and A.classID=B.ClassID where updateFlg>0) " & _
     "Set skill=iif(score<=900000,0,cdbl((score-900000)*lev*2/100000+lev))"
     sqls1(5) = "update tmp set skill=int(skill*100)/100.0"
@@ -263,8 +263,9 @@ Sub createScoreView()
     Call mkView("rivalScoreView1")
     Call mkView("previousScore0")
     Call mkView("rivalPreviousScore0")
+    Call mkProc("horizontalData1")
     Call mkView("skillAttackData0")
-    Call mkProc("skillAttackData1")
+    Call mkView("skillAttackData1")
     Call mkProc("p_rivalScoreView0")
     Call mkProc("p_rivalScoreView1")
     Call mkProc("p_rivalScoreView2")

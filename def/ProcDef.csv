@@ -51,7 +51,7 @@ left Join rankTbl R On X.rankID=R.rankID )
 left Join comboTbl C On X.comboID=C.comboID) 
 left join rankTbl R1 on X1.rankID=R1.rankID) 
 left join comboTbl C1 on X1.comboID=C1.comboID",
-"skillAttackData1","transform 
+"horizontalData1","transform 
 max(data) 
 select num from score0 
 group by num 

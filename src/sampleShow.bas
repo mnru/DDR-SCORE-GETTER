@@ -44,7 +44,7 @@ Sub mkRivalPivot(Optional top = "A3")
     pvt.PivotFields("rivalID").Orientation = xlPageField
     pvt.PivotFields("lev").Orientation = xlColumnField
     pvt.PivotFields("diff").Orientation = xlRowField
-    pvt.PivotFields("diff").DataRange.Cells(1).Group Start:=-1000000, End:=1000000, By:=50000
+    pvt.PivotFields("diff").DataRange.Cells(1).Group Start:=-999999, End:=1000000, By:=50000
 End Sub
 
 Sub displayVsRivalScoreView()

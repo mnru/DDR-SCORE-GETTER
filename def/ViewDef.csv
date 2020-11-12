@@ -88,3 +88,13 @@ max(iif(classID=6,data,null)) as ddp,
 max(iif(classID=7,data,null)) as edp, 
 max(iif(classID=8,data,null)) as cdp 
  from scoreview0 group by id"
+"skillAttackData1","select 
+ A.id,B.num,B.initID,B.verID, 
+'index%5B%5D=' & B.num  as prefix, 
+'&gsp%5B%5D=' & gsp & '&bsp%5B%5D=' & bsp & '&dsp%5B%5D=' & dsp & '&esp%5B%5D=' & esp & '&csp%5B%5D=' & csp as spPart, 
+'&bdp%5B%5D=' & bdp & '&ddp=%5B%5D' & ddp & '&edp=%5B%5D' & edp & '&cdp%5B%5D=' & cdp  as dpPart, 
+prefix & sppart & dppart as bothData, 
+prefix & sppart & '&bdp%5B%5D=&ddp%5B%5D=&edp%5B%5D=&cdp%5B%5D=' as spData, 
+prefix & '&gsp%5B%5D=&bsp%5B%5D=&dsp%5B%5D=&esp%5B%5D=&csp%5B%5D=' & dppart as dpData 
+from horizontalData A 
+inner join MusicTbl B on A.id=B.id"

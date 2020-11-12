@@ -174,6 +174,6 @@ Sub importSkillTxt(Optional toTbl = "SCoreTbl", Optional tsvFdr = "")
 End Sub
 
 Sub testgsd()
-    data = getSkillData("skillAttackData0", "double")
+    data = getUpdateSkillData(False, True)
     Debug.Print data
 End Sub

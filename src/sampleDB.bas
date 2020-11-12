@@ -137,28 +137,6 @@ Sub setSchema()
     Next pn
 End Sub
 
-Sub importTxt0(Optional rival = "", Optional bDirect = True, Optional tsvFdr = "")
-    If tsvFdr = "" Then tsvFdr = ThisWorkbook.path & "\tsv\"
-    toTbl = IIf(Not bDirect, "tmp", IIf(rival = "", "scoreTbl", "rivalScoreTbl"))
-    If Right(Trim(tsvFdr), 1) <> "\" Then tsvFdr = Trim(tsvFdr) & "\"
-    Set fso = CreateObject("Scripting.FileSystemObject")
-    Dim sSQLs(0 To 9)
-    sSQLs(0) = "delete from " & toTbl
-    If rival <> "" Then sqls(0) = sqls(0) & " where rivalID=" & rival
-    For i = 0 To 8
-        sd = IIf(i <= 4, "single", "double")
-        If rival = "" Then
-            fromTbl = txtAsTable(tsvFdr & sd & ".txt")
-        Else
-            fromTbl = txtAsTable(tsvFdr & rival & "_" & sd & ".txt")
-        End If
-        '
-        sSQLs(i + 1) = mkInsertIntoSQL(toTbl, fromTbl, "ID,classID,score,rankID,comboID", _
-        Join(Array("id", i, "score" & i, "rank" & i, "combo" & i), ","), "rank" & i & ">0")
-    Next i
-    Call execSQLs(sSQLs, ThisWorkbook.path & "\data.mdb")
-End Sub
-
 Sub importTxt(Optional toTbl = "tmp", Optional rival = "", Optional tsvFdr = "")
     If tsvFdr = "" Then tsvFdr = ThisWorkbook.path & "\tsv\"
     If Right(Trim(tsvFdr), 1) <> "\" Then tsvFdr = Trim(tsvFdr) & "\"
@@ -174,7 +152,7 @@ Sub importTxt(Optional toTbl = "tmp", Optional rival = "", Optional tsvFdr = "")
         End If
         '
         sSQLs(i + 1) = mkInsertIntoSQL(toTbl, fromTbl, "ID,classID,score,rankID,comboID", _
-        Join(Array("id", i, "score" & i, "rank" & i, "combo" & i), ","), "rank" & i & ">0")
+        Join(Array("id", i, "score" & i, "rank" & i, "combo" & i), ","), "rank" & i & "<16")
     Next i
     Call execSQLs(sSQLs, ThisWorkbook.path & "\data.mdb")
 End Sub
@@ -189,7 +167,7 @@ Sub importRivalTxt(rival, Optional toTbl = "rivalScoreTbl", Optional tsvFdr = ""
         fromTbl = txtAsTable(tsvFdr & rival & "_" & sd & ".txt")
         '
         sSQLs(i) = mkInsertIntoSQL(toTbl, fromTbl, "rivalID,ID,classID,score,rankID,comboID", _
-        Join(Array(rival, "id", i, "score" & i, "rank" & i, "combo" & i), ","), "rank" & i & ">0")
+        Join(Array(rival, "id", i, "score" & i, "rank" & i, "combo" & i), ","), "rank" & i & "<16")
     Next i
     Call execSQLs(sSQLs, ThisWorkbook.path & "\data.mdb")
 End Sub
@@ -279,6 +257,7 @@ Sub createScoreView()
     Call mkView("ScoreView0")
     Call mkView("ScoreView")
     Call mkView("tmp0")
+    Call mkView("horizontalData")
     Call mkView("rivalScoreView0")
     Call mkView("rivalScoreView")
     Call mkView("rivalScoreView1")

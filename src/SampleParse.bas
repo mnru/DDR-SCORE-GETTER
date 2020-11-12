@@ -15,8 +15,8 @@ Sub htmlsToTsv(sd, htmlFdr, ToFdr, Optional rival = "", Optional bFrm = False)
     Dim stm0, stm1
     Dim fn, sdcnt
     Dim rankAry, comboAry, singleAry, doubleAry
-    rankAry = Array("none", "e", "d", "d_p", "c_m", "c", "c_p", "b_m", "b", "b_p", "a_m", "a", "a_p", "aa_m", "aa", "aa_p", "aaa")
-    comboAry = Array("none", "good", "great", "perfect", "mar")
+    rankAry = Array("aaa", "aa_p", "aa", "aa_m", "a_p", "a", "a_m", "b_p", "b", "b_m", "c_p", "c", "c_m", "d_p", "d", "e", "none")
+    comboAry = Array("mar", "perfect", "great", "good", "none")
     singleAry = Array("ID", "score0", "rank0", "combo0", "score1", "rank1", "combo1", _
     "score2", "rank2", "combo2", "score3", "rank3", "combo3", "score4", "rank4", "combo4", "title")
     doubleAry = Array("ID", "score5", "rank5", "combo5", "score6", "rank6", "combo6", _

@@ -38,7 +38,7 @@ rivalID,ver,init,title,play,deg,lev,B.score,X.score-B.score as diff,B.rank, B.co
 X.score as myScore,X.rank as myRank,X.combo as myCombo,X.skill as mySkill 
 From (((((musiclevel A 
 left join rivalScoreView0 B on A.ID=B.ID and A.classID=B.classID) 
- left join scoreView0 X on A.ID=X.ID and A.classID=X.classID) 
+left join scoreView0 X on B.ID=X.ID and B.classID=X.classID) 
 inner join musicTbl C on A.ID=C.ID) 
 inner join classTbl D on A.classID=D.ClassID) 
 inner join verTbl E on C.verID=E.verID) 

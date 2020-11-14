@@ -93,8 +93,8 @@ max(iif(classID=8,data,null)) as cdp
 'index%5B%5D=' & B.num  as prefix, 
 '&gsp%5B%5D=' & gsp & '&bsp%5B%5D=' & bsp & '&dsp%5B%5D=' & dsp & '&esp%5B%5D=' & esp & '&csp%5B%5D=' & csp as spPart, 
 '&bdp%5B%5D=' & bdp & '&ddp=%5B%5D' & ddp & '&edp=%5B%5D' & edp & '&cdp%5B%5D=' & cdp  as dpPart, 
-prefix & sppart & dppart as bothData, 
-prefix & sppart & '&bdp%5B%5D=&ddp%5B%5D=&edp%5B%5D=&cdp%5B%5D=' as spData, 
-prefix & '&gsp%5B%5D=&bsp%5B%5D=&dsp%5B%5D=&esp%5B%5D=&csp%5B%5D=' & dppart as dpData 
+prefix & spPart & dpPart as bothData, 
+prefix & spPart & '&bdp%5B%5D=&ddp%5B%5D=&edp%5B%5D=&cdp%5B%5D=' as spData, 
+prefix & '&gsp%5B%5D=&bsp%5B%5D=&dsp%5B%5D=&esp%5B%5D=&csp%5B%5D=' & dpPart as dpData 
 from horizontalData A 
 inner join MusicTbl B on A.id=B.id"

@@ -1,4 +1,4 @@
-Attribute VB_Name = "samplwDL"
+Attribute VB_Name = "sampleDL"
 Function getPageNum(spath)
     Dim ret
     Set fso = CreateObject("Scripting.FileSystemObject")

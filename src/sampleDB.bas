@@ -238,6 +238,12 @@ Sub importMusicData()
     mdata = txtAsTable(ThisWorkbook.path & "\data\musicData.csv", "YES")
     Call writeSchema(ThisWorkbook.path & "\data", Array("musicData.csv"))
     Call getCurMdb
+    
+    sSQL = "delete from MusicTbl"
+    Call execSQL(sSQL)
+    sSQL = "delete from MusicLevel"
+    Call execSQL(sSQL)
+    '
     sSQL = mkInsertIntoSQL("MusicTbl", mdata, "ID,num,title,verID,initID", "ID,num,title,verID,initID")
     Call execSQL(sSQL)
     '

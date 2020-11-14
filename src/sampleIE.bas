@@ -169,12 +169,15 @@ Function getLevAry(id)
     Ie.Quit
 End Function
 
-Sub getLevArySheet(idAry)
+Sub getLevArySheet(ParamArray ids())
+    Dim idAry
+    idAry = ids
     Call mkIe
     ThisWorkbook.Sheets.Add
     sn = ActiveSheet.name
     Sheets(sn).Columns(2).NumberFormat = "@"
     rNum = 1
+    
     Dim ret
     For Each id In idAry
         url = "https://p.eagate.573.jp/game/ddr/ddra20/p/playdata/music_detail.html?index=" & id

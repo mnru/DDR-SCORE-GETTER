@@ -22,7 +22,7 @@ Private Sub cmdLogin_Click()
 End Sub
 
 Private Sub UserForm_Initialize()
-    Me.tbxCode = TLookup("DDRCODE(8桁)", "認証", "値")
+    Me.tbxCode = TLookup("DDRコード(8桁)", "認証", "値")
     Me.tbxPwd = TLookup("SkillAttackパスワード", "認証", "値")
     cbxSP = True
     cbxDP = True

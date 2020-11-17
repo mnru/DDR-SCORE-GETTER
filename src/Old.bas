@@ -634,5 +634,3 @@ Sub importTxt0Old(Optional rival = "", Optional bDirect = True, Optional tsvFdr 
     Next i
     Call execSQLs(sSQLs, ThisWorkbook.path & "\data.mdb")
 End Sub
-
-

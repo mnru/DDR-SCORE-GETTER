@@ -739,8 +739,45 @@ Private Sub lay2DAryAt(ary, r, c)
     Cells(r, c).Resize(rNum, cNum) = ary
 End Sub
 
+Function strFrom2Dary(ary, Optional cdlm = vbTab, Optional rdlm = vbCrLf)
+    Dim ret, i, j
+    ret = ""
+    For i = LBound(ary) To UBound(ary)
+        For j = LBound(ary, 2) To UBound(ary, 2)
+            ret = ret & ary(i, j)
+            If j < UBound(ary, 2) Then ret = ret & cdlm
+        Next j
+        If i < UBound(ary) Then ret = ret & rdlm
+    Next i
+    strFrom2Dary = ret
+End Function
+
+Sub test2dAry()
+    x = mk2DAry(2, 3, 1, 2, 3, 4, 5, 6)
+    y = strFrom2Dary(x, "=", "&")
+    Debug.Print y
+End Sub
+
+Function getRst(sql, Optional mpath = "")
+    Dim rst
+    Call getCurMdb(mpath)
+    Set rst = CreateObject("ADODB.Recordset")
+    Call openMdbCon
+    Call rst.Open(sql, adoCon)
+    Set getRst = rst
+    Set rst = Nothing
+End Function
+
 Sub exitForm(sFrm)
     Call Unload(UserForms(sFrm))
+End Sub
+
+Sub testsss()
+    Call getCurMdb
+    sql = "select * from musicLevel"
+    Set rst = getRst(sql)
+    ary = rst.getrows
+    printAry ary
 End Sub
 
 Sub testss()

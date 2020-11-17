@@ -11,10 +11,20 @@ End Sub
 
 Sub updateWholeSkillData(code, pwd, Optional bSP = True, Optional bDP = True)
     frmSkillAttack.llblInfo = "送信データ作成"
-    DoEvents
-    Dim data
-    data = getWholeSkillData(bSP, bDP)
-    Call writeSkill(code, pwd, data)
+    Call getCurMdb
+    Dim maxNum
+    maxNum = getSqlVals("select max(num) from musicTbl")(0)
+    maxT = Int(maxNum / 50)
+    
+    Dim initAry
+    ReDim datas(0 To maxT)
+    For i = 0 To maxT
+
+        datas(i) = getSkillDataByNum(bSP, bDP, 1 + 50 * i, 50 * (i + 1))
+        
+        DoEvents
+    Next i
+    Call writeSkills(code, pwd, datas)
 End Sub
 
 Sub writeSkill(code, pwd, data)
@@ -40,6 +50,36 @@ Sub writeSkill(code, pwd, data)
     Call xhr.Open("post", url)
     Call setUrlEncoded
     xhr.send (postdata)
+    frmSkillAttack.llblInfo = "終了しました"
+End Sub
+
+Sub writeSkills(code, pwd, datas)
+    Call mkXhr
+    Dim url, postdata
+    url = " http://skillattack.com/sa4/dancer_input.php"
+    postdata = "_=" & "&ddrcode=" & code & "&password=" & pwd
+    Call xhr.Open("post", url)
+    Call setUrlEncoded
+    xhr.send (postdata)
+    If xhr.responseText Like "<!DOCTYPE HTML*" Then
+        frmSkillAttack.llblInfo = "ログイン成功"
+    Else
+        frmSkillAttack.llblInfo = xhr.responseText & vbCrLf & "処理を終了します"
+        Exit Sub
+    End If
+    DoEvents
+    '
+    url = " http://skillattack.com/sa4/dancer_input.php"
+    Call xhr.Open("post", url)
+    Call setUrlEncoded
+    For Each data In datas
+        Call xhr.Open("post", url)
+        Call setUrlEncoded
+        postdata = "_=score_submit" & "&ddrcode=" & code & "&password=" & pwd & "&" & data
+        xhr.send (postdata)
+        DoEvents
+        Application.Wait (Now() + TimeValue("00:00:01"))
+    Next data
     frmSkillAttack.llblInfo = "終了しました"
 End Sub
 
@@ -111,6 +151,54 @@ Function getSkillDataById(id, Optional bSP = True, Optional bDP = True, Optional
     End If
     getSkillDataById = ret
 End Function
+
+Function getSkillDataByNum(Optional bSP = True, Optional bDP = True, Optional num1 = Empty, Optional num2 = Empty)
+    Call getCurMdb
+    Dim sql, ret, col, ary, data
+    If bSP = False And bDP = False Then
+        getSkillDataByInit = Empty
+        Exit Function
+    End If
+    If bSP = True & bDP = True Then
+        col = "bothData"
+    ElseIf bSP = True Then
+        col = "spData"
+    Else
+        col = "dpData"
+    End If
+    sql = "select " & col & " from skillAttackData1 where num between " & num1 & " and " & num2
+    Set rst = getRst(sql)
+    ary = rst.getrows
+    data = strFrom2Dary(ary, "&", ";")
+    getSkillDataByNum = data
+End Function
+
+
+
+Function getSkillDataByInit(Optional bSP = True, Optional bDP = True, Optional num1 = Empty, Optional num2 = Empty)
+    Call getCurMdb
+    Dim sql, ret, col, ary, data
+    If bSP = False And bDP = False Then
+        getSkillDataByInit = Empty
+        Exit Function
+    End If
+    If bSP = True & bDP = True Then
+        col = "bothData"
+    ElseIf bSP = True Then
+        col = "spData"
+    Else
+        col = "dpData"
+    End If
+    sql = "select " & col & " from skillAttackData1 where initID between " & num1 & " and " & num2
+    Set rst = getRst(sql)
+    ary = rst.getrows
+    data = strFrom2Dary(ary, "&", ";")
+    getSkillDataByInit = data
+End Function
+
+Sub testgs()
+    Debug.Print getSkillDataByInit(False, True, 0, 2)
+End Sub
 
 Function getWholeSkillData(Optional bSP = True, Optional bDP = True, Optional mdbPath = "")
     Dim ret, rst, num, cid, data, clc, ary

@@ -140,6 +140,7 @@ Function getPageNumIE()
 End Function
 
 Sub goAroundScoreSite()
+    Call mkIe
     Call printTime("getScoreIe", "single")
     Call printTime("getScoreIe", "double")
     Ie.Quit

@@ -6,7 +6,7 @@ Sub mkScoreDB()
     mkMdb (mdbPath)
     mkScoreTbls
     importMasterData
-    importMusicData
+    'importMusicData
     createScoreView
     Sheets("menu").Activate
     MsgBox "èIóπÇµÇ‹ÇµÇΩ"

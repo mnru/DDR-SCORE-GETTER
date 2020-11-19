@@ -31,3 +31,10 @@ Sub fileToHtml(spath, Optional chr = "shift-jis", Optional bwithmeta = False)
     End If
     html.Write str0
 End Sub
+
+Sub dlUrlToFile(url, dlPath)
+    Call mkXhr
+    Call xhr.Open("get", url)
+    Call xhr.send
+    Call resBodyToFile(dlPath)
+End Sub

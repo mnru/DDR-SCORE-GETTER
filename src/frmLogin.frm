@@ -21,7 +21,6 @@ Private Sub chkRival_Click()
     cboRival.Visible = chkRival.Value
     tbxRival.Visible = chkRival.Value
     If Not chkRival.Value Then tbxRival.Value = ""
-    
 End Sub
 
 Private Sub cmdLogin_Click()
@@ -61,4 +60,4 @@ Private Sub UserForm_Initialize()
     cbxDP = True
     Me.chkRival.Value = False
     Call chkRival_Click
- End Sub
+End Sub

@@ -15,13 +15,10 @@ Sub updateWholeSkillData(code, pwd, Optional bSP = True, Optional bDP = True)
     Dim maxNum
     maxNum = getSqlVals("select max(num) from musicTbl")(0)
     maxT = Int(maxNum / 50)
-    
     Dim initAry
     ReDim datas(0 To maxT)
     For i = 0 To maxT
-
         datas(i) = getSkillDataByNum(bSP, bDP, 1 + 50 * i, 50 * (i + 1))
-        
         DoEvents
     Next i
     Call writeSkills(code, pwd, datas)
@@ -172,8 +169,6 @@ Function getSkillDataByNum(Optional bSP = True, Optional bDP = True, Optional nu
     data = strFrom2Dary(ary, "&", ";")
     getSkillDataByNum = data
 End Function
-
-
 
 Function getSkillDataByInit(Optional bSP = True, Optional bDP = True, Optional num1 = Empty, Optional num2 = Empty)
     Call getCurMdb

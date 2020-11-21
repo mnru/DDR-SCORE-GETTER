@@ -12,21 +12,6 @@ Sub mkScoreDB()
     MsgBox "èIóπÇµÇ‹ÇµÇΩ"
 End Sub
 
-Sub htmlToScoreDB(Optional rival = "")
-    If rival = "" Then
-        bothHtmlToCsv
-        setSchema
-        importTxt
-        updateScoreTbl
-    Else
-        bothHtmlToCsv (rival)
-        setSchema
-        importRivalTxt (rival)
-        updateRivalScoreTbl (rival)
-    End If
-    MsgBox "èIóπÇµÇ‹ÇµÇΩ"
-End Sub
-
 Sub allHtmlToScoreDB()
     Call allHtmlToTsv
     Call allTsvToScoreDB
@@ -69,8 +54,33 @@ Sub importTsvToScoreDB(Optional rival = "")
     frmLogin.llblInfo.Caption = "èIóπÇµÇ‹ÇµÇΩ"
 End Sub
 
+Sub mkDummyScore(Optional rival = "", Optional tsvDir = "")
+    Dim pre, spath
+    Dim stm
+    If tsvDir = "" Then tsvDir = ThisWorkbook.path & "\tsv\"
+    If Right(tsvDir, 1) <> "\" Then tsvDir = tsvDir & "\"
+    pre = IIf(rival = "", "", rival & "_")
+    Set fso = CreateObject("Scripting.FileSystemObject")
+    For Each sd In Array("single", "double")
+        spath = tsvDir & pre & sd & ".txt"
+        If Not fso.fileexists(spath) Then
+            num1 = IIf(sd = "single", 0, 5)
+            num2 = IIf(sd = "single", 4, 8)
+            Set stm = fso.CreateTextFile(spath)
+            stm.Write ("ID" & vbTab)
+            For i = num1 To num2
+                stm.Write ("score" & i & vbTab & "rank" & i & vbTab & "combo" & i & vbTab)
+            Next i
+            stm.WriteLine ("title")
+            stm.Close
+        End If
+    Next sd
+    Set stm = Nothing
+End Sub
+
 Sub tsvToScoreDB()
     Dim num
+    Call mkDummyScore
     setSchema
     num = getSqlVals("select count(*) from ScoreTbl")(0)
     If num = 0 Then
@@ -84,6 +94,7 @@ End Sub
 
 Sub tsvToRivalScoreDB(rival)
     Dim num
+    Call mkDummyScore(rival)
     setSchema
     num = getSqlVals("select count(*) from rivalScoreTbl where rivalId=" & rival)(0)
     If num = 0 Then

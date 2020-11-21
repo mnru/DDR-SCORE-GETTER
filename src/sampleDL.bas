@@ -69,19 +69,11 @@ Sub dlScores(Optional sd = "double", Optional rival = "")
 End Sub
 
 Sub dlMusicData()
-Set fso = CreateObject("Scripting.FileSystemObject")
-url = "https://raw.githubusercontent.com/mnru/DDR-SCORE-GETTER/main/data/musicData.csv"
-dlFdr = ThisWorkbook.path & "\data"
-dlPath = dlFdr & "\musicData.csv"
-If Not fso.FolderExists(dlFdr) Then fso.CreateFolder (dlFdr)
-Call dlUrlToFile(url, dlPath)
-End Sub
-
-Sub updateMusicData()
-    Call dlMusicData
-    Call getCurMdb
-    Call importMusicData
-    MsgBox "èIóπÇµÇ‹ÇµÇΩ"
-
+    Set fso = CreateObject("Scripting.FileSystemObject")
+    url = "https://raw.githubusercontent.com/mnru/DDR-SCORE-GETTER/main/data/musicData.csv"
+    dlFdr = ThisWorkbook.path & "\data"
+    dlPath = dlFdr & "\musicData.csv"
+    If Not fso.FolderExists(dlFdr) Then fso.CreateFolder (dlFdr)
+    Call dlUrlToFile(url, dlPath)
 End Sub
 

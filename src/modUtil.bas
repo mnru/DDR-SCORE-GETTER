@@ -105,3 +105,12 @@ Sub backUpDef()
         Call xlTblToCsv(tbl, saveDir)
     Next tbl
 End Sub
+
+Sub registerOrder()
+    On Error Resume Next
+    Application.AddCustomList ListArray:=Sheets("data").Range("rankTbl[rank]")
+    Application.AddCustomList ListArray:=Sheets("data").Range("comboTbl[combo]")
+    'Application.AddCustomList ListArray:=Sheets("data").Range("verTbl[ver]")
+    On Error GoTo 0
+End Sub
+

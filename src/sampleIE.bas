@@ -170,9 +170,7 @@ Function getLevAry(id)
     Ie.Quit
 End Function
 
-Sub getLevArySheet(ParamArray ids())
-    Dim idAry
-    idAry = ids
+Sub getLevArySheet(idAry)
     Call mkIe
     ThisWorkbook.Sheets.Add
     sn = ActiveSheet.name

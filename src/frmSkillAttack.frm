@@ -13,6 +13,7 @@ Attribute VB_GlobalNameSpace = False
 Attribute VB_Creatable = False
 Attribute VB_PredeclaredId = True
 Attribute VB_Exposed = False
+
 Private Sub cmdLogin_Click()
     If opgUpdate Then
         Call updateSkillData(tbxCode, tbxPwd, cbxSP, cbxDP)
